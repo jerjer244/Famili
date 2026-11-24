@@ -41,7 +41,7 @@
   const uinfo = u => ({ email: em(u.email), name: (u.user_metadata && u.user_metadata.name) || u.email.split('@')[0] });
   const R = {
     async init() { const { data } = await sb.auth.getSession(); return data.session ? uinfo(data.session.user) : null; },
-    async signUp(e, p, n) { const { data, error } = await sb.auth.signUp({ email: em(e), password: p, options: { data: { name: n } } }); if (error) throw error; if (!data.session) throw Error('Account created. Check your email to confirm it, then log in.'); return uinfo(data.user); },
+    async signUp(e, p, n) { const { data, error } = await sb.auth.signUp({ email: em(e), password: p, options: { data: { name: n }, emailRedirectTo: new URL('./create.html', location.href).href } }); if (error) throw error; if (!data.session) throw Error('Account created. Check your email to confirm it, then log in.'); return uinfo(data.user); },
     async signIn(e, p) { const { data, error } = await sb.auth.signInWithPassword({ email: em(e), password: p }); if (error) throw error; return uinfo(data.user); },
     async signOut() { await sb.auth.signOut(); },
     async list() {

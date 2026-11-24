@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create — Famili</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🌳%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header id="top">
+  <a class="logo" href="./index.html">🌳 Famili</a>
+  <nav class="links"><a href="./index.html">Home</a><a href="./create.html" class="on">Create</a><a href="./about.html">About</a></nav>
+  <input id="title" class="title" title="Project title" aria-label="Project title">
+  <nav class="modes">
+    <button data-mode="tree" class="on">Family Tree</button>
+    <button data-mode="book">Book</button>
+  </nav>
+  <div class="grow"></div>
+  <span id="status" class="status">Saved</span>
+  <button id="btnCust" title="Templates, backgrounds, lines and paper">🎨 Templates &amp; Customize</button>
+  <button id="btnSave" title="Save a snapshot now">💾 Save</button>
+  <button id="btnExport" title="Download a portable .famili.json backup">⬇ Export JSON</button>
+  <button id="btnImport" title="Load a .famili.json backup">⬆ Import JSON</button>
+  <input type="file" id="fileImport" accept=".json,application/json" hidden>
+</header>
+
+<main>
+<section id="treeView">
+  <div class="toolbar">
+    <button id="addMember" class="primary" title="Add a new person">+ Add Member</button>
+    <button id="newBlank" title="Start an empty tree">New Blank Tree</button>
+    <button id="loadDemo" title="Reload the sample family">Load Demo</button>
+  </div>
+  <div id="canvas" class="t-classic">
+    <div id="tint"></div>
+    <div id="world"><svg id="lines" width="1" height="1"></svg><div id="cards"></div></div>
+    <div id="emptyTree" class="empty" hidden>No family members yet.<br>Click <b>+ Add Member</b> to begin.</div>
+    <div class="zoom">
+      <button id="zOut" title="Zoom out">−</button><span id="zLbl">100%</span><button id="zIn" title="Zoom in">+</button><button id="zFit" title="Fit to screen">Fit</button>
+    </div>
+  </div>
+</section>
+
+<section id="bookView" hidden>
+  <div id="editor" class="pane"></div>
+  <div id="preview" class="pane">
+    <div class="pnav">
+      <button id="pPrev">◀ Previous Page</button><span id="pNum"></span><button id="pNext">Next Page ▶</button>
+      <div class="grow"></div><button id="btnPrint" class="primary">🖨 Print / Save as PDF</button>
+    </div>
+    <div id="pagePrev"></div>
+  </div>
+</section>
+</main>
+
+<aside id="insp" class="drawer"></aside>
+
+<aside id="cust" class="drawer">
+  <div class="dh"><h3>Templates &amp; Customize</h3><button class="x" data-close="cust">✕</button></div>
+  <h4>Tree Window</h4>
+  <label>Template</label>
+  <div class="opts" id="tplOpts">
+    <button data-tpl="classic">Classic Heirloom</button><button data-tpl="modern">Minimalist Modern</button>
+    <button data-tpl="sage">Botanical Sage</button><button data-tpl="scrap">Vintage Scrapbook</button>
+  </div>
+  <label>Custom canvas background</label>
+  <div class="row"><input type="file" id="bgFile" accept="image/*"><button id="bgClear">Remove</button></div>
+  <label>Background tint / overlay <output id="ovOut"></output></label>
+  <input type="range" id="ovRange" min="0" max="90" step="1">
+  <label>Connector style</label>
+  <select id="lineStyle"><option value="curve">Curved Bezier</option><option value="elbow">Orthogonal Elbow</option></select>
+  <label>Accent color</label>
+  <div class="row"><input type="color" id="accent" value="#8a5a2b"><button id="accentReset">Use template color</button></div>
+  <h4>Book Window</h4>
+  <label>Paper</label>
+  <div class="opts" id="paperOpts">
+    <button data-paper="ivory">Ivory</button><button data-paper="linen">Linen</button>
+    <button data-paper="kraft">Kraft</button><button data-paper="sage">Sage</button><button data-paper="white">White</button>
+  </div>
+  <label>Custom paper texture / background image</label>
+  <div class="row"><input type="file" id="paperFile" accept="image/*"><button id="paperClear">Remove</button></div>
+  <label>Typography</label>
+  <select id="bookFont"><option value="serif">Serif Classic</option><option value="sans">Editorial Sans</option></select>
+  <label>Page shape</label>
+  <select id="bookRatio"><option value="a4">A4 Portrait</option><option value="sq">Square Photo Album</option></select>
+</aside>
+
+<div id="toast"></div>
+<div id="printRoot"></div>
+<style id="pageStyle"></style>
+<script src="./config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="./backend.js"></script>
+<script src="./app.js"></script>
+<script src="./account.js"></script>
+</body>
+</html>
